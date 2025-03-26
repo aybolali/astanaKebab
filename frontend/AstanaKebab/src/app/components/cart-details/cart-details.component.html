@@ -1,0 +1,73 @@
+<div class="main-content">
+    <div class="section-content section-content-p30">
+        <div class="container-fluid">
+            <!-- Show cart items if any -->
+            <div *ngIf="cartItemsForByListDetailsOverall.length > 0">
+                <table class="table table-bordered text-center">
+                    <thead>
+                        <tr>
+                            <th width="20%">Product Image</th>
+                            <th width="50%">Product Detail</th>
+                            <th width="30%">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of cartItemsForByListDetailsOverall">
+                            <!-- Product Image -->
+                            <td>
+                                <img [src]="item.imageUrl" alt="Product Image" class="img-fluid" width="150">
+                            </td>
+
+                            <!-- Product Details -->
+                            <td>
+                                <p class="font-weight-bold">{{ item.name }}</p>
+                                <p class="text-success">{{ item.unitPrice | currency: 'PLN' }}</p>
+                            </td>
+
+                            <!-- Quantity Controls & Subtotal -->
+                            <td>
+                                <div class="d-flex align-items-center justify-content-center mb-3">
+                                    <!-- Increment Button -->
+                                    <button (click)="incrementQuantity(item)" class="btn btn-primary btn-sm mx-2">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+
+                                    <!-- Quantity Display -->
+                                    <span class="font-weight-bold">{{ item.quantity }}</span>
+
+                                    <!-- Decrement Button -->
+                                    <button (click)="decrementQuantity(item)" class="btn btn-primary btn-sm mx-2">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+                                </div>
+
+                                <!-- Remove Button -->
+                                <button (click)="remove(item)" class="btn btn-danger btn-sm">
+                                    <i class="fas fa-trash-alt"></i> Remove
+                                </button>
+
+                                <!-- Subtotal -->
+                                <p class="mt-2 font-weight-bold">Subtotal: {{ item.quantity * item.unitPrice | currency: 'PLN' }}</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- Cart Totals -->
+                <div class="text-right mt-4">
+                    <p><strong>Total Quantity:</strong> {{ totalQuantityOverallBeforePayment }}</p>
+                    <p><strong>Shipping:</strong> FREE</p>
+                    <p><strong>Total Price:</strong> {{ totalPriceOverallBeforePayment | currency: 'PLN' }}</p>
+                    <a routerLink="/checkout" class="btn btn-primary btn-lg mt-3">
+                        <i class="fas fa-credit-card"></i> Checkout
+                    </a>
+                </div>
+            </div>
+
+            <!-- Empty Cart Message -->
+            <div *ngIf="cartItemsForByListDetailsOverall.length === 0" class="alert alert-warning text-center mt-5" role="alert">
+                <i class="fas fa-shopping-cart"></i> Your shopping cart is empty.
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,99 @@
+.detail-section {
+    padding: 20px;
+    /* Add spacing around the section */
+    margin: 30px auto;
+    /* Center align the section and add spacing */
+    max-width: 800px;
+    /* Limit the width for better readability */
+    background-color: #fff;
+    /* Set a light background */
+    border: 2px solid #ccc;
+    /* Add a light border */
+    border-radius: 10px;
+    /* Rounded corners for a polished look */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    /* Subtle shadow for depth */
+}
+
+.detail-img {
+    max-width: 100%;
+    /* Make image responsive */
+    height: auto;
+    border-radius: 10px;
+    /* Add rounded corners to match the box */
+    margin-bottom: 20px;
+    /* Add space below the image */
+    margin-top: 45px;
+    border: 1px solid #ddd;
+    /* Optional: Add a light border to the image */
+}
+
+h3 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    /* Darker text for better readability */
+    margin-bottom: 15px;
+}
+
+.price {
+    font-size: 20px;
+    color: #0da8e4;
+    /* Accent color for price */
+    font-weight: bold;
+    margin: 15px 0;
+}
+
+.btn {
+    padding: 10px 20px;
+    /* Add more padding for better button visibility */
+    font-size: 16px;
+    border-radius: 5px;
+    /* Rounded corners */
+    background-color: #0da8e4;
+    /* Primary button color */
+    color: #fff;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #05143f;
+    /* Change color on hover */
+}
+
+hr {
+    border: none;
+    border-top: 1px solid #ccc;
+    /* Subtle divider */
+    margin: 20px 0;
+}
+
+h4 {
+    font-size: 18px;
+    font-weight: bold;
+    color: #444;
+    margin-bottom: 10px;
+}
+
+p {
+    font-size: 16px;
+    color: #666;
+    /* Softer color for the description text */
+    line-height: 1.5;
+    text-align: justify;
+    /* Align description for better readability */
+}
+
+a {
+    color: #0da8e4;
+    font-size: 16px;
+    text-decoration: none;
+    margin-top: 20px;
+    display: inline-block;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #05143f;
+}
