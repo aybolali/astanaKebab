@@ -1,0 +1,58 @@
+    .order-history__title {
+        text-align: center;
+        margin-bottom: 20px;
+        font-size: 24px;
+        font-weight: 600;
+        color: rgb(16, 15, 15);
+        /* Adjust title color */
+    }
+    
+    .order-history__table-container {
+        margin-top: 20px;
+        overflow-x: auto;
+        background-color: rgba(255, 255, 255, 0.8);
+        /* Add a semi-transparent white background for readability */
+        padding: 20px;
+        /* Add padding to the table container */
+    }
+    
+    .order-history__table {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: transparent;
+        /* Make table background transparent */
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    
+    .order-history__header,
+    .order-history__cell {
+        padding: 12px 15px;
+        text-align: center;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+        /* Lighter border for better visibility */
+        color: #333;
+        /* Adjust text color */
+    }
+    
+    .order-history__header {
+        background-color: rgba(255, 255, 255, 0.2);
+        /* Semi-transparent background for headers */
+        font-weight: 600;
+        color: white;
+        /* Adjust header color */
+    }
+    
+    .order-history__row:nth-child(even) {
+        background-color: rgba(255, 255, 255, 0.1);
+        /* Slightly different row background */
+    }
+    
+    .order-history__empty-message {
+        text-align: center;
+        margin-top: 20px;
+        padding: 15px;
+        background-color: rgba(255, 255, 255, 0.8);
+        /* Semi-transparent white background for message */
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        /* Adjust border color */
+    }

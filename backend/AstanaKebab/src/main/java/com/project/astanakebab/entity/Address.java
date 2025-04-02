@@ -1,5 +1,6 @@
 package com.project.astanakebab.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -31,5 +32,6 @@ public class Address {
 
     @OneToOne
     @PrimaryKeyJoinColumn //join using primary keys - default name
+    @JsonIgnore
     private Order order;
 }

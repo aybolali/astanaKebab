@@ -19,7 +19,6 @@ export class LoginComponent implements OnInit{
       baseUrl: myAppConfig.oidc.issuer.split('/oauth2')[0], //taking part until /ouath2 - just dev-21036721.okta.com (base URL) - берет значение из myAppConfig.oidc.issuer и разрезает его по первому вхождению '/oauth2'. После этого берется первая часть строки (то есть всё, что находится до '/oauth2').
       clientId: myAppConfig.oidc.clientId,
       redirectUri: myAppConfig.oidc.redirectUri,
-      useClassicEngine:true,
       authParams : {
         pkce : true, //proof key for code exchange
         issuer : myAppConfig.oidc.issuer,

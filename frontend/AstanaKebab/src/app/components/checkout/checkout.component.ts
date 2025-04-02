@@ -32,6 +32,8 @@ export class CheckoutComponent implements OnInit{
   shippingAddressStates : State[] = []
   billingAddressStates : State[] = []
 
+  storage: Storage = sessionStorage
+
   constructor(private formBuilder:FormBuilder,
     private shopFormService:ShopFormService,
     private cartService:CartService,
@@ -43,11 +45,15 @@ export class CheckoutComponent implements OnInit{
 
     this.reviewCartDetails()
 
+    //read the user's email address from browser 
+    const theEmail = JSON.stringify(this.storage.getItem('userEmail'))
+
+
     this.checkoutFormGroup = this.formBuilder.group({ //build a form by types
       customer : this.formBuilder.group({ //like key name of customer form                                                                              значит для параметров упоминая только функцию оно будет отбирать то что им понадобиться для проверки - такова закон для typescript - вы передаёте ссылку на функцию, а не вызываете её
         firstName: /*[''] it was just initial form | now for validation there -> */ new FormControl('', [Validators.required, Validators.minLength(2), ShopValidators.notOnlyWhitespace]),//Typescript is a superset of Javascript, which can store functions as variables
         lastName: /*['']*/ new FormControl('', [Validators.required, Validators.minLength(2), ShopValidators.notOnlyWhitespace]),
-        email: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'), ShopValidators.notOnlyWhitespace])
+        email: new FormControl(theEmail, [Validators.required, Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'), ShopValidators.notOnlyWhitespace])
       }),
       shippingAddress : this.formBuilder.group({
         street: new FormControl('',  //initial start typing field

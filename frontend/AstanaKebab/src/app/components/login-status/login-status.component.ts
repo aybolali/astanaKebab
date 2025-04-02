@@ -12,6 +12,7 @@ export class LoginStatusComponent implements OnInit{
   isAuthenticated : boolean = false 
   userFullName : string = ''
 
+  storage: Storage = sessionStorage
   constructor(private oktaAuthService: OktaAuthStateService,
     @Inject(OKTA_AUTH) private oktaAuth: OktaAuth
   ){}
@@ -22,7 +23,7 @@ export class LoginStatusComponent implements OnInit{
     // authState$ automatically emits updates on the user's authentication state. When a user logs in, Okta triggers a state change, which causes authState$ to emit a new value.
     this.oktaAuthService.authState$.subscribe( 
       (result) => {
-        this.isAuthenticated = result.isAuthenticated ?? false;
+        this.isAuthenticated = result.isAuthenticated!;
         this.getUserDetails();
       }
     )
@@ -33,6 +34,12 @@ export class LoginStatusComponent implements OnInit{
       this.oktaAuth.getUser().then(
         (res) => {
           this.userFullName = res.name as string 
+
+          //retrieve the user's email from the authentication response
+          const theEmail = res.email;
+
+          //storing the email in browser storage
+          this.storage.setItem('userEmail', JSON.stringify(theEmail))
         }
       )
     }

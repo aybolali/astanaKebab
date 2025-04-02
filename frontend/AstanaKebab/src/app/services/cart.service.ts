@@ -12,7 +12,7 @@ export class CartService {
   totalPrice: Subject<number> = new BehaviorSubject<number>(0)
   totalQuantity: Subject<number> = new BehaviorSubject<number>(0) //BEHAVIORAL for getting the LAST EVENT(do not care for previous events - just getting the last event) to subscribe - 0 is initial value
 
-  storage: Storage = localStorage //sessionStorage - reference to web browser's session storage - browser's memory - session storage -  f.e keep saving the values after some operation when the page refreshed - values will not lost - will keep staying due to session storage
+  storage: Storage = sessionStorage //sessionStorage - reference to web browser's session storage - browser's memory - session storage -  f.e keep saving the values after some operation when the page refreshed - values will not lost - will keep staying due to session storage - no kogda browser tab zakroetsya - values will be lost
   //local storage is better that including this one it has a case when the page totally closed - data still stays(keep saving) after operations to browser's memory
 
   constructor() { 
