@@ -4,6 +4,7 @@ import { Product } from '../common/product';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { ProductCategory } from '../common/product-category';
+import { environment } from '../../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
@@ -14,9 +15,9 @@ export class ProductService{
     return this.httpClient.get<Product>(productUrl);
   }
 
-  private baseUrl = 'http://localhost:8080/api/products'; //link to Spring Boot REST API backend service
+  private baseUrl = environment.astaanaKebabApiUrl + '/products'; //link to Spring Boot REST API backend service
 
-  private categoryUrl = 'http://localhost:8080/api/product-category';
+  private categoryUrl = environment.astaanaKebabApiUrl + '/product-category';
   constructor(private httpClient:HttpClient) { }
 
   getProductList(theCategoryId:number): Observable<Product[]>{ //observable - for processing data
@@ -32,6 +33,7 @@ export class ProductService{
     const searchUrl = `${this.baseUrl}/search/findByCategoryId?id=${theCategoryId}`+
      `&page=${thePage}&size=${thePageSize}`;
     
+    console.log(`Getting products from -  ${searchUrl}`)
     return this.httpClient.get<GetResponseProducts>(searchUrl);
 
   }
