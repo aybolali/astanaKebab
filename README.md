@@ -4,145 +4,140 @@
 
 Astana Kebab is a full-stack online food ordering system designed to simplify the ordering process for both customers and restaurant owners. The system is built for usability, scalability, and secure transactions. It uses Java Spring Boot for backend operations and Angular for a responsive frontend.
 
----
-
 ## Features
 
-- **User Authentication:** Secure login with role-based access control powered by Okta.
-- **Dynamic Menu Rendering:** Real-time updates of menu items.
-- **Shopping Cart & Checkout:** Add, remove, and update quantities of items in the cart, then complete the purchase.
-- **Order Tracking:** Monitor the status of placed orders.
-- **Database Integration:** Efficient data management with MySQL.
-- **Secure Transactions:** Uses modern authentication and payment validation methods.
-- **Admin Dashboard:** Allows restaurant owners to manage products, orders, and user roles.
-
----
+-   **User Authentication:** Secure login with role-based access control.
+-   **Dynamic Menu Rendering:** Real-time updates of menu items.
+-   **Shopping Cart & Checkout:** Add, remove, and update quantities of items in the cart, then complete the purchase.
+-   **Order Tracking:** Monitor the status of placed orders.
+-   **Database Integration:** Efficient data management with MySQL.
+-   **Secure Transactions:** Uses modern authentication and payment validation methods.
+-   **Admin Dashboard:** Allows restaurant owners to manage products, orders, and user roles.
 
 ## Tech Stack
 
-- **Backend:** Java, Spring Boot, Hibernate, REST API
-- **Frontend:** Angular, TypeScript, Bootstrap
-- **Database:** MySQL
-- **Security:** Okta Authentication
-- **Version Control:** Git, GitHub
-
----
+-   **Backend:** Java, Spring Boot, Hibernate, REST API
+-   **Frontend:** Angular, TypeScript, Bootstrap
+-   **Database:** MySQL
+-   **Version Control:** Git, GitHub
 
 ## Project Setup
 
 ### Prerequisites
 
-- **Java 17+**
-- **Node.js & npm**
-- **Angular CLI**
-- **MySQL Server**
-- **IDE:** IntelliJ IDEA / VS Code
-
----
+-   Java 17+
+-   Node.js & npm
+-   Angular CLI
+-   MySQL Server
+-   IDE: IntelliJ IDEA / VS Code
 
 ### Backend Setup
 
-1. **Clone the repository:**
+1.  **Clone the repository:**
 
-   ```bash
-   git clone https://github.com/your-repo/astana-kebab.git
-   cd astana-kebab/backend
-Configure the MySQL database:
+    ```bash
+    git clone [https://github.com/your-repo/astana-kebab.git](https://github.com/your-repo/astana-kebab.git)
+    cd astana-kebab/backend
+    ```
 
-sql
-Copy
-Edit
-CREATE DATABASE astana_kebab;
-Update application.properties with your database credentials:
+2.  **Configure the MySQL database:**
 
-properties
-Copy
-Edit
-spring.datasource.url=jdbc:mysql://localhost:3306/astana_kebab
-spring.datasource.username=root
-spring.datasource.password=yourpassword
-Run the Spring Boot application:
+    -   Create the database:
 
-bash
-Copy
-Edit
-mvn spring-boot:run
-Frontend Setup
-Navigate to the frontend directory:
+        ```sql
+        CREATE DATABASE astana_kebab;
+        ```
 
-bash
-Copy
-Edit
-cd ../frontend
-Install dependencies:
+    -   Update `application.properties` with your database credentials:
 
-bash
-Copy
-Edit
-npm install
-Start the Angular development server:
+        ```properties
+        spring.datasource.url=jdbc:mysql://localhost:3306/astana_kebab
+        spring.datasource.username=root
+        spring.datasource.password=yourpassword
+        ```
 
-bash
-Copy
-Edit
-ng serve
-API Endpoints
-User Authentication
-POST /api/auth/register - Register a new user
+3.  **Run the Spring Boot application:**
 
-POST /api/auth/login - User login
+    ```bash
+    mvn spring-boot:run
+    ```
 
-Products
-GET /api/products - Retrieve all products
+### Frontend Setup
 
-GET /api/products/{id} - Get product details
+1.  **Navigate to the frontend directory:**
 
-POST /api/products - Add a new product (Admin)
+    ```bash
+    cd ../frontend
+    ```
 
-Orders
-POST /api/orders - Place an order
+2.  **Install dependencies:**
 
-GET /api/orders/{userId} - Get user order history
+    ```bash
+    npm install
+    ```
 
-Deployment
-Build the Angular project:
+3.  **Start the Angular development server:**
 
-bash
-Copy
-Edit
-ng build --prod
-Deploy the backend on a cloud platform (e.g., Heroku, AWS, etc.).
+    ```bash
+    ng serve
+    ```
 
-Serve the frontend using a static hosting service (e.g., Netlify, Vercel, NGINX, etc.).
+## API Endpoints
 
-Future Enhancements
-Mobile App Development - A mobile version of the application for iOS and Android.
+### User Authentication
 
-Multilingual Support - Support for multiple languages to cater to a global audience.
+-   **POST /api/auth/register** - Register a new user
+-   **POST /api/auth/login** - User login
 
-Advanced Data Analytics - Insights into user behavior and restaurant performance.
+### Products
 
-Contributing
+-   **GET /api/products** - Retrieve all products
+-   **GET /api/products/{id}** - Get product details
+-   **POST /api/products** - Add a new product (Admin)
+
+### Orders
+
+-   **POST /api/orders** - Place an order
+-   **GET /api/orders/{userId}** - Get user order history
+
+## Deployment
+
+1.  **Build the Angular project:**
+
+    ```bash
+    ng build --prod
+    ```
+
+2.  **Deploy the backend** on a cloud platform (e.g., Heroku, AWS, etc.).
+3.  **Serve the frontend** using a static hosting service (e.g., Netlify, Vercel, NGINX, etc.).
+
+## Future Enhancements
+
+-   **Mobile App Development** - A mobile version of the application for iOS and Android.
+-   **Multilingual Support** - Support for multiple languages to cater to a global audience.
+-   **Advanced Data Analytics** - Insights into user behavior and restaurant performance.
+
+## Contributing
+
 We welcome contributions to the project! Here's how you can contribute:
 
-Fork the repository.
+1.  **Fork the repository.**
+2.  **Create a new branch:**
 
-Create a new branch:
+    ```bash
+    git checkout -b feature-branch
+    ```
 
-bash
-Copy
-Edit
-git checkout -b feature-branch
-Commit your changes:
+3.  **Commit your changes:**
 
-bash
-Copy
-Edit
-git commit -m "Added a new feature"
-Push to the branch:
+    ```bash
+    git commit -m "Added a new feature"
+    ```
 
-bash
-Copy
-Edit
-git push origin feature-branch
-Submit a Pull Request.
+4.  **Push to the branch:**
+
+    ```bash
+    git push origin feature-branch
+    ```
+
+5.  **Submit a Pull Request.**
