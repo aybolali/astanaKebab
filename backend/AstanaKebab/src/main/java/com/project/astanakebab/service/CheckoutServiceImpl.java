@@ -1,24 +1,32 @@
 package com.project.astanakebab.service;
 
+import com.project.astanakebab.dto.PaymentInfo;
 import com.project.astanakebab.dto.Purchase;
 import com.project.astanakebab.dto.PurchaseResponse;
 import com.project.astanakebab.entity.Customer;
 import com.project.astanakebab.entity.Order;
 import com.project.astanakebab.entity.OrderItem;
 import com.project.astanakebab.repository.CustomerRepository;
+import com.stripe.Stripe;
+import com.stripe.exception.StripeException;
+import com.stripe.model.PaymentIntent;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class CheckoutServiceImpl implements CheckoutService{
 
     private CustomerRepository customerRepository;
 
-    public CheckoutServiceImpl(CustomerRepository customerRepository){
+    public CheckoutServiceImpl(CustomerRepository customerRepository,
+                               @Value("${stripe.key.secret}") String secretKey){
         this.customerRepository = customerRepository;
+
+        //initialize stripe key with own secret key
+        Stripe.apiKey = secretKey;
     }
     @Override
     @Transactional
@@ -53,5 +61,21 @@ public class CheckoutServiceImpl implements CheckoutService{
         customerRepository.save(customer); //repository saving
 
         return new PurchaseResponse(orderTrackingNumber);
+    }
+
+    @Override
+    public PaymentIntent createPaymentIntent(PaymentInfo paymentInfo) throws StripeException {
+
+        List<String> paymentMethodTypes = new ArrayList<>();
+        paymentMethodTypes.add("card");
+
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("amount", paymentInfo.getAmount());
+        parameters.put("currency", paymentInfo.getCurrency());
+        parameters.put("payment_method_types", paymentMethodTypes);
+        parameters.put("description", "Astana Kebab purchase");
+        parameters.put("receipt_email", paymentInfo.getReceiptEmail());
+
+        return PaymentIntent.create(parameters);
     }
 }

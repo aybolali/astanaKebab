@@ -1,14 +1,23 @@
 package com.project.astanakebab.controller;
 
+import com.project.astanakebab.dto.PaymentInfo;
 import com.project.astanakebab.dto.Purchase;
 import com.project.astanakebab.dto.PurchaseResponse;
 import com.project.astanakebab.service.CheckoutService;
+import com.stripe.exception.StripeException;
+import com.stripe.model.PaymentIntent;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.logging.Logger;
 
 @RestController
 @RequestMapping("/api/checkout")
 public class CheckoutController {
+
+    private Logger logger = Logger.getLogger(getClass().getName());
     private CheckoutService checkoutService;
 
     @Autowired
@@ -21,5 +30,16 @@ public class CheckoutController {
         PurchaseResponse purchaseResponse = checkoutService.placeOrder(purchase);
 
         return purchaseResponse;
+    }
+
+    @PostMapping("/payment-intent")
+    public ResponseEntity<String> createPaymentIntent(@RequestBody PaymentInfo paymentInfo) throws StripeException {
+
+        logger.info("paymentInfo.amount: " + paymentInfo.getAmount());
+        PaymentIntent paymentIntent = checkoutService.createPaymentIntent(paymentInfo);
+
+        String paymentString = paymentIntent.toJson();
+
+        return new ResponseEntity<>(paymentString, HttpStatus.OK);
     }
 }

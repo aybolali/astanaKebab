@@ -21,7 +21,7 @@
                             <!-- Product Details -->
                             <td>
                                 <p class="font-weight-bold">{{ item.name }}</p>
-                                <p class="text-success">{{ item.unitPrice | currency: 'PLN' }}</p>
+                                <p class="text-success">{{ item.unitPrice | currency: 'zł' }}</p>
                             </td>
 
                             <!-- Quantity Controls & Subtotal -->
@@ -47,7 +47,7 @@
                                 </button>
 
                                 <!-- Subtotal -->
-                                <p class="mt-2 font-weight-bold">Subtotal: {{ item.quantity * item.unitPrice | currency: 'PLN' }}</p>
+                                <p class="mt-2 font-weight-bold">Subtotal: {{ item.quantity * item.unitPrice | currency: 'zł' }}</p>
                             </td>
                         </tr>
                     </tbody>
@@ -57,7 +57,7 @@
                 <div class="text-right mt-4">
                     <p><strong>Total Quantity:</strong> {{ totalQuantityOverallBeforePayment }}</p>
                     <p><strong>Shipping:</strong> FREE</p>
-                    <p><strong>Total Price:</strong> {{ totalPriceOverallBeforePayment | currency: 'PLN' }}</p>
+                    <p><strong>Total Price:</strong> {{ totalPriceOverallBeforePayment | currency: 'zł' }}</p>
                     <a routerLink="/checkout" class="btn btn-primary btn-lg mt-3">
                         <i class="fas fa-credit-card"></i> Checkout
                     </a>

@@ -11,6 +11,8 @@ import { Order } from '../../common/order';
 import { OrderItem } from '../../common/order-item';
 import { Purchase } from '../../common/purchase';
 import { Address } from '../../common/address';
+import { environment } from '../../../environments/environment';
+import { PaymentInfo } from '../../common/payment-info';
 
 @Component({
   selector: 'app-checkout',
@@ -24,6 +26,8 @@ export class CheckoutComponent implements OnInit{
   totalQuantity:number = 0
   totalPrice:number = 0
 
+  isDisabled = false //for getting only one transaction - avoiding from multiple transactions after extra clicks in one time
+
   creditCardMonths: number[] = []
   creditCardYears: number[] = []
 
@@ -34,6 +38,12 @@ export class CheckoutComponent implements OnInit{
 
   storage: Storage = sessionStorage
 
+  stripeApi = Stripe(environment.stripePublishableKey)
+
+  paymentInfo: PaymentInfo = new PaymentInfo();
+  cardElement: any;
+  displayError: any;
+
   constructor(private formBuilder:FormBuilder,
     private shopFormService:ShopFormService,
     private cartService:CartService,
@@ -42,6 +52,8 @@ export class CheckoutComponent implements OnInit{
 ){}
     
   ngOnInit(): void {
+
+    this.setupStripePaymentForm()
 
     this.reviewCartDetails()
 
@@ -76,16 +88,19 @@ export class CheckoutComponent implements OnInit{
         zipCode: new FormControl('', [Validators.required, Validators.minLength(2), ShopValidators.notOnlyWhitespace]),
       }),
       creditCard : this.formBuilder.group({
+        /*
         cardType: new FormControl('', [Validators.required, ShopValidators.notOnlyWhitespace]),
         nameOnCard: new FormControl('', [Validators.required, Validators.minLength(2), ShopValidators.notOnlyWhitespace]),
         cardNumber: new FormControl('', [Validators.required, Validators.pattern('[0-9]{16}'), ShopValidators.notOnlyWhitespace]),//{16} means field must be 16 digits number
         security: new FormControl('', [Validators.required, Validators.pattern('[0-9]{3}'), ShopValidators.notOnlyWhitespace]),
         expirationMonth: [''],
         expirationYear: ['']
+        */
       })
     }
    )
 
+   /*
     const startMonth :number = new Date().getMonth() + 1
     console.log("current month: " + startMonth)
 
@@ -106,6 +121,7 @@ export class CheckoutComponent implements OnInit{
       }
     )
 
+    */
     //populate countries
     this.shopFormService.getCountries().subscribe(
       data => {
@@ -115,6 +131,26 @@ export class CheckoutComponent implements OnInit{
     )
 
   }
+
+  setupStripePaymentForm() {
+    var elements = this.stripeApi.elements()
+
+    this.cardElement = elements.create('card', {hidePostalCode : true})
+
+    //add an instance of card UI component into the 'card-element' div in HTML
+    this.cardElement.mount('#card-element')
+
+    this.cardElement.on('change', (event:any) => {
+      this.displayError = document.getElementById('card-errors')
+
+      if(event.complete){
+        this.displayError.textContent=""
+      } else if (event.error){
+        this.displayError.textContent = event.error.message
+      }
+    })
+  }
+  
   reviewCartDetails() {
 
     //subscribe to cartService.totalQuantity
@@ -176,8 +212,15 @@ export class CheckoutComponent implements OnInit{
     purchase.order = order
     purchase.orderItems = orderItems
 
-    //call REST API via checkoutService
+    //payment info
+    this.paymentInfo.amount = Math.round(this.totalPrice * 100);
+    this.paymentInfo.currency = "PLN"
+    this.paymentInfo.receiptEmail=purchase.customer.email
 
+    console.log(`payment info amount: ${this.paymentInfo.amount}`)
+
+    /*
+    //call REST API via checkoutService
     this.checkoutService.placeOrder(purchase).subscribe(
       {//next : success / happy
         next: response => {
@@ -191,12 +234,69 @@ export class CheckoutComponent implements OnInit{
         }
       }
     )
+    */
+   // if valid form then 
+   // - create payment intent
+   // - confirm card payment
+   // - place order
+
+    if(!this.checkoutFormGroup.invalid && this.displayError.textContent === ""){
+
+      this.isDisabled = true 
+
+     this.checkoutService.createPaymentIntent(this.paymentInfo).subscribe( //spring boot api
+      paymentIntentResponse => {
+        this.stripeApi.confirmCardPayment(paymentIntentResponse.client_secret,  //send credit card data directly to stripe.com servers
+          {
+            payment_method : {
+              card: this.cardElement,  //reference the stripe elements component: cardElement
+              billing_details: {
+                email: purchase.customer.email,
+                name: `${purchase.customer.firstName} ${purchase.customer.lastName}`,
+                address: {
+                  city: purchase.billingAddress.city,
+                  country: this.billingAddressCountry?.value.code,
+                  line1: purchase.billingAddress.street,
+                  postal_code: purchase.billingAddress.zipCode,
+                  state: purchase.billingAddress.state
+                }
+              }
+            }
+          }, { handleActions: false })
+        .then((result: any) => {
+          if(result.error) {
+            alert(`There was an error: ${result.error.message}`)
+            this.isDisabled = false
+          } else {
+            //rest api
+            this.checkoutService.placeOrder(purchase).subscribe({
+              next: (response: any) => {
+                alert(`Your Order has been received.\nOrder tracking number: ${response.orderTrackingNumber}`)
+                //reset fields (after success form - clean all for the new order)
+                this.resetForm()
+                this.isDisabled = false
+              },
+              error: (error:any) => {
+                alert(`There is an error: ${error.message}`)
+                this.isDisabled = false
+              }          
+            })
+          }
+        })     
+      }
+     )
+    } else {
+      this.checkoutFormGroup.markAllAsTouched()
+      alert("Please fill all the fields correctly")
+      return
+    }
   }
   resetForm() {
     //reset the form data 
     this.cartService.cartItems = []
     this.cartService.totalPrice.next(0) //sending out a value 0 to all subscribers 
     this.cartService.totalQuantity.next(0) 
+    this.cartService.persistCartItems() //reset the cart items in local storage
 
     //reset the form 
     this.checkoutFormGroup.reset()
