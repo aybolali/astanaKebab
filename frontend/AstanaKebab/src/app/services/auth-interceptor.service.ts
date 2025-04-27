@@ -17,7 +17,7 @@ export class AuthInterceptorService implements HttpInterceptor{
   }
   private async handleAccess(request: HttpRequest<any>, next: HttpHandler): Promise<HttpEvent<any>> {
 
-    const securedApiEndpoint = environment.astaanaKebabApiUrl + '/orders'
+    const securedApiEndpoint = environment.astanaKebabApiUrl + '/orders'
     const securedRequests = [securedApiEndpoint]
 
     if(securedRequests.some(url => request.urlWithParams.includes(url))){

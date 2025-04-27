@@ -10,9 +10,9 @@ import { PaymentInfo } from '../common/payment-info';
 })
 export class CheckoutService {
 
-  private purchaseUrl = environment.astaanaKebabApiUrl + '/checkout/purchase'
+  private purchaseUrl = environment.astanaKebabApiUrl + '/checkout/purchase'
 
-  private paymentIntentUrl = environment.astaanaKebabApiUrl + '/checkout/payment-intent'
+  private paymentIntentUrl = environment.astanaKebabApiUrl + '/checkout/payment-intent'
   constructor(private httpClient : HttpClient) { }
 
   placeOrder(purchase:Purchase):Observable<any>{

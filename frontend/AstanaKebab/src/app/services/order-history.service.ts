@@ -9,7 +9,7 @@ import { environment } from '../../environments/environment';
 })
 export class OrderHistoryService {
 
-  private orderUrl = environment.astaanaKebabApiUrl + '/orders'
+  private orderUrl = environment.astanaKebabApiUrl + '/orders'
 
   constructor(private httpClient: HttpClient) {}
 

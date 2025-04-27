@@ -10,8 +10,8 @@ import { environment } from '../../environments/environment';
 })
 export class ShopFormService {
 
-  private countriesUrl = environment.astaanaKebabApiUrl + '/countries'
-  private statesUrl = environment.astaanaKebabApiUrl + '/states'
+  private countriesUrl = environment.astanaKebabApiUrl + '/countries'
+  private statesUrl = environment.astanaKebabApiUrl + '/states'
 
   constructor(
     private httpClient : HttpClient

@@ -15,9 +15,9 @@ export class ProductService{
     return this.httpClient.get<Product>(productUrl);
   }
 
-  private baseUrl = environment.astaanaKebabApiUrl + '/products'; //link to Spring Boot REST API backend service
+  private baseUrl = environment.astanaKebabApiUrl + '/products'; //link to Spring Boot REST API backend service
 
-  private categoryUrl = environment.astaanaKebabApiUrl + '/product-category';
+  private categoryUrl = environment.astanaKebabApiUrl + '/product-category';
   constructor(private httpClient:HttpClient) { }
 
   getProductList(theCategoryId:number): Observable<Product[]>{ //observable - for processing data
