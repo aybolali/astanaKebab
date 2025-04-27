@@ -1,143 +1,134 @@
-# Astana Kebab - Self-Automated Food Ordering System
+# Astana Kebab 🍽️  
+Astana Kebab is a full-stack food ordering web application built for a restaurant in Warsaw.  
+It allows users to browse the menu, place secure online orders, and provides an admin dashboard for restaurant management.
 
-## Overview
+---
 
-Astana Kebab is a full-stack online food ordering system designed to simplify the ordering process for both customers and restaurant owners. The system is built for usability, scalability, and secure transactions. It uses Java Spring Boot for backend operations and Angular for a responsive frontend.
+## 🚀 Tech Stack  
+- **Backend:** Java 21, Spring Boot 3, Spring Security (JWT), Hibernate, Spring Data JPA  
+- **Frontend:** Angular 17, TypeScript  
+- **Database:** MySQL  
+- **Other Tools:** Docker, Stripe API, Swagger (OpenAPI), MapStruct, Maven  
 
-## Features
+---
 
--   **User Authentication:** Secure login with role-based access control.
--   **Dynamic Menu Rendering:** Real-time updates of menu items.
--   **Shopping Cart & Checkout:** Add, remove, and update quantities of items in the cart, then complete the purchase.
--   **Order Tracking:** Monitor the status of placed orders.
--   **Database Integration:** Efficient data management with MySQL.
--   **Secure Transactions:** Uses modern authentication and payment validation methods.
--   **Admin Dashboard:** Allows restaurant owners to manage products, orders, and user roles.
+## ✨ Features  
+- 📋 **Dynamic Menu Browsing:** Real-time updates with categories and product images.  
+- 🛒 **Secure Shopping Cart:** Stripe checkout integration for payments.  
+- 🔒 **User Authentication:** Role-based access control with JWT tokens.  
+- 🛠️ **Admin Panel:** Manage products, categories, and orders.  
+- 📱 **Responsive Design:** Optimized for desktop and mobile users.  
+- 📑 **Interactive API Documentation:** Powered by Swagger.  
 
-## Tech Stack
+---
 
--   **Backend:** Java, Spring Boot, Hibernate, REST API
--   **Frontend:** Angular, TypeScript, Bootstrap
--   **Database:** MySQL
--   **Version Control:** Git, GitHub
+## ⚙️ Installation & Setup  
 
-## Project Setup
-
-### Prerequisites
-
--   Java 17+
--   Node.js & npm
--   Angular CLI
--   MySQL Server
--   IDE: IntelliJ IDEA / VS Code
-
-### Backend Setup
-
-1.  **Clone the repository:**
-
+### Backend Setup  
+1. **Clone the repository:**  
     ```bash
-    git clone [https://github.com/your-repo/astana-kebab.git](https://github.com/your-repo/astana-kebab.git)
-    cd astana-kebab/backend
-    ```
+    git clone https://github.com/aybolali/astanaKebab.git  
+    cd astanaKebab/backend  
+    ```  
 
-2.  **Configure the MySQL database:**
-
-    -   Create the database:
-
+2. **Configure MySQL:**  
+    - Create a database:  
         ```sql
-        CREATE DATABASE astana_kebab;
-        ```
-
-    -   Update `application.properties` with your database credentials:
-
+        CREATE DATABASE astana_kebab;  
+        ```  
+    - Update `application.properties`:  
         ```properties
-        spring.datasource.url=jdbc:mysql://localhost:3306/astana_kebab
-        spring.datasource.username=root
-        spring.datasource.password=yourpassword
-        ```
+        spring.datasource.url=jdbc:mysql://localhost:3306/astana_kebab  
+        spring.datasource.username=root  
+        spring.datasource.password=yourpassword  
 
-3.  **Run the Spring Boot application:**
+        stripe.api.key=your_stripe_secret_key  
+        ```  
 
+3. **Run the Spring Boot application:**  
     ```bash
-    mvn spring-boot:run
-    ```
+    mvn spring-boot:run  
+    ```  
 
-### Frontend Setup
-
-1.  **Navigate to the frontend directory:**
-
+### Frontend Setup  
+1. **Navigate to the frontend directory:**  
     ```bash
-    cd ../frontend
-    ```
+    cd ../frontend  
+    ```  
 
-2.  **Install dependencies:**
-
+2. **Install dependencies:**  
     ```bash
-    npm install
-    ```
+    npm install  
+    ```  
 
-3.  **Start the Angular development server:**
-
+3. **Start the Angular development server:**  
     ```bash
-    ng serve
-    ```
+    ng serve  
+    ```  
 
-## API Endpoints
+---
 
-### User Authentication
+## 📚 API Endpoints  
 
--   **POST /api/auth/register** - Register a new user
--   **POST /api/auth/login** - User login
+### User Authentication  
+- **POST /api/auth/register** — Register a new user  
+- **POST /api/auth/login** — Login user  
 
-### Products
+### Products  
+- **GET /api/products** — Get all products  
+- **GET /api/products/{id}** — Get product details  
+- **POST /api/products** — Add a new product (Admin)  
 
--   **GET /api/products** - Retrieve all products
--   **GET /api/products/{id}** - Get product details
--   **POST /api/products** - Add a new product (Admin)
+### Orders  
+- **POST /api/orders** — Place a new order  
+- **GET /api/orders/{userId}** — Get order history by user  
 
-### Orders
+### Payments  
+- **POST /api/payment/checkout** — Create a Stripe checkout session  
 
--   **POST /api/orders** - Place an order
--   **GET /api/orders/{userId}** - Get user order history
+---
 
-## Deployment
-
-1.  **Build the Angular project:**
-
+## 🚀 Deployment  
+1. **Build the Angular project:**  
     ```bash
-    ng build --prod
-    ```
+    ng build --prod  
+    ```  
 
-2.  **Deploy the backend** on a cloud platform (e.g., Heroku, AWS, etc.).
-3.  **Serve the frontend** using a static hosting service (e.g., Netlify, Vercel, NGINX, etc.).
+2. **Deploy the backend** to a cloud service (e.g., Heroku, AWS, Railway, etc.).  
+3. **Serve the frontend** through a static host (e.g., Netlify, Vercel, NGINX, etc.).  
 
-## Future Enhancements
+---
 
--   **Mobile App Development** - A mobile version of the application for iOS and Android.
--   **Multilingual Support** - Support for multiple languages to cater to a global audience.
--   **Advanced Data Analytics** - Insights into user behavior and restaurant performance.
+## 🛠️ Future Enhancements  
+- 📱 **Mobile App Development:** iOS & Android support.  
+- 🌎 **Multilingual Support:** Polish, English, Kazakh.  
+- 📊 **Advanced Analytics:** Insights into user behavior and sales.  
+- 📦 **Real-Time Order Tracking:** Status updates like "Preparing", "Ready", "Out for delivery".  
+- 📬 **Email Notifications:** For orders and updates.  
+- 📈 **Admin Dashboard Enhancements:** Graphs and sales insights.  
+- ⚙️ **Inventory Management System.**  
 
-## Contributing
+---
 
-We welcome contributions to the project! Here's how you can contribute:
+## 🤝 Contributing  
+We welcome contributions! Follow these steps:  
 
-1.  **Fork the repository.**
-2.  **Create a new branch:**
-
+1. **Fork the repository.**  
+2. **Create a new branch:**  
     ```bash
-    git checkout -b feature-branch
-    ```
-
-3.  **Commit your changes:**
-
+    git checkout -b feature-branch  
+    ```  
+3. **Commit your changes:**  
     ```bash
-    git commit -m "Added a new feature"
-    ```
-
-4.  **Push to the branch:**
-
+    git commit -m "Added a new feature"  
+    ```  
+4. **Push your branch:**  
     ```bash
-    git push origin feature-branch
-    ```
+    git push origin feature-branch  
+    ```  
+5. **Submit a Pull Request.**  
 
-5.  **Submit a Pull Request.**
+---
+
+## 🌟 Project Highlights  
+Full-stack development with secure authentication, Stripe payment integration, modern responsive design, cloud deployment readiness, and clean code practices.
