@@ -1,0 +1,65 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: Aibol2003
+      MYSQL_DATABASE: full-stack-astana-kebab
+      MYSQL_USER: AstanaKebab
+      MYSQL_PASSWORD: AstanaKebab01
+    volumes:
+      - ./mysql:/var/lib/mysql
+    ports:
+      - "3307:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - dev
+
+  backend:
+    build:
+      context: ./backend/AstanaKebab
+      dockerfile: Dockerfile
+    container_name: backend
+    ports:
+      - "443:8443" # внешне доступен как 443
+    networks:
+      - dev
+    depends_on:
+      - mysql
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  frontend:
+    build:
+      context: ./frontend/AstanaKebab
+      dockerfile: Dockerfile
+    container_name: frontend
+    depends_on:
+      - backend
+    networks:
+      - dev
+
+  nginx:
+    image: nginx:stable-alpine
+    container_name: nginx
+    depends_on:
+      - backend
+      - frontend
+    ports:
+      - "4200:4200"
+    volumes:
+      - ./frontend/AstanaKebab/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./frontend/AstanaKebab/ssl-localhost:/etc/nginx/ssl:ro
+      - ./frontend/AstanaKebab/dist/angular-commerce/browser:/usr/share/nginx/html:ro
+    networks:
+      - dev
+      
+networks:
+  dev:
