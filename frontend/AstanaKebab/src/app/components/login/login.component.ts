@@ -23,6 +23,9 @@ export class LoginComponent implements OnInit{
         pkce : true, //proof key for code exchange
         issuer : myAppConfig.oidc.issuer,
         scopes: myAppConfig.oidc.scopes
+      },
+      features: {
+        registration: true
       }
     })
   }
@@ -43,6 +46,7 @@ export class LoginComponent implements OnInit{
         throw error
       }
     )
+    
 
   }
 
