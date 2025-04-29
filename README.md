@@ -1,5 +1,5 @@
-[![codecov](https://codecov.io/gh/aybolali/astanaKebab/branch/main/graph/badge.svg)]
-(https://codecov.io/gh/aybolali/astanaKebab)
+[![codecov](https://codecov.io/gh/aybolali/astanaKebab/branch/main/graph/badge.svg)](https://codecov.io/gh/aybolali/astanaKebab)
+
 
 # Astana Kebab 🍽️  
 Astana Kebab is a full-stack food ordering web application built for a restaurant in Warsaw.  
